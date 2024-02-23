@@ -3,7 +3,6 @@ from datetime import datetime, timezone, timedelta
 import requests
 
 
-# Assuming you have stored your webhook URL and API key in Streamlit's secrets
 WEBHOOK_URL = st.secrets["webhook_url"]
 API_KEY = st.secrets["api_key"]
 PASSCODE = st.secrets[
@@ -12,7 +11,7 @@ PASSCODE = st.secrets[
 
 CONTEST_END_TIME = datetime(
     2024, 3, 2, 23, 59, 59, tzinfo=timezone(timedelta(hours=1))
-)  # CET/CEST
+) 
 
 
 def verify_email(email):
@@ -43,7 +42,7 @@ def send_data_via_webhook(data):
 
 
 def check_contest_deadline():
-    now = datetime.now(timezone(timedelta(hours=1)))  # CET/CEST
+    now = datetime.now(timezone(timedelta(hours=1)))
     if now > CONTEST_END_TIME:
         st.error("Sorry, the contest has ended.")
         st.stop()
@@ -76,10 +75,9 @@ with st.form("submission_form"):
     name = st.text_input("First Name")
     passcode_input = st.text_input(
         "Passcode"
-    ).lower()  # Convert input to lowercase for comparison
+    ).lower()
     compliance = st.checkbox("I agree to the terms and conditions.")
-
-    # Terms and Conditions Expander
+    
     with st.expander("Terms and Conditions"):
         st.markdown(
             """

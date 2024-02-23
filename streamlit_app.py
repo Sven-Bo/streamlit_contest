@@ -53,16 +53,21 @@ st.set_page_config("T-Shirt Contest", page_icon="🏆")
 
 st.title("Win a Streamlit T-Shirt!", anchor=False)
 col1, col2 = st.columns((2, 1))
-col1.write(" ")
-col1.subheader(
-    "It's Sven from CodingIsFun! Participate in my contest to win an exclusive Streamlit T-shirt.",
-    anchor=False,
-)
+with col1:
+    st.write(" ")
+    st.subheader(
+        "It's Sven from CodingIsFun! Participate in my contest to win an exclusive Streamlit T-shirt.",
+        anchor=False,
+    )
+    st.page_link(
+        "http://www.youtube.com/@codingisfun", label="YouTube Channel", icon="📺"
+    )
+    st.page_link("http://www.pythonandvba.com", label="Website", icon="🌎")
 
 col2.image("assets/streamlit_tshirt.jpg", width=150)
 st.divider()
 st.info(
-    "Contest ends on Saturday, 2nd March EOD CET. Winner will be picked by random choice on Sunday, 3rd March and informed via email.",
+    "Contest ends on Saturday, 2nd March 2024 EOD CET. Winner will be picked by random choice on Sunday, 3rd March and informed via email.",
     icon="💡",
 )
 

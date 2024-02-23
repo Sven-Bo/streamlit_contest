@@ -3,7 +3,7 @@
 This repository contains the code and terms for a simple contest to win a Streamlit T-shirt. Participants submit their entries through a Streamlit app, with the winner selected randomly after the contest closes.
 
 ## Live Website
-[Link to Website](https://t-shirt.contest.streamlit.app/)
+[Link to Website](https://tshirt.streamlit.app/)
 
 ## 🤝 Connect with Me
 - 📺 **YouTube:** [CodingIsFun](https://youtube.com/c/CodingIsFun)

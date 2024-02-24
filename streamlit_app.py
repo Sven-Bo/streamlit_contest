@@ -58,6 +58,8 @@ with col1:
         "It's Sven from CodingIsFun! Participate in my contest to win an exclusive Streamlit T-shirt.",
         anchor=False,
     )
+    st.write("Watch the video below to find the **passcode** needed to enter the contest. Make sure to pay close attention as the passcode could appear at any moment!")
+    st.video("https://youtu.be/Ek82r3EEMs4")
     st.page_link(
         "http://www.youtube.com/@codingisfun", label="YouTube Channel", icon="📺"
     )

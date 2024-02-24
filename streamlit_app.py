@@ -59,7 +59,7 @@ with col1:
         anchor=False,
     )
 col2.image("assets/streamlit_tshirt.jpg", width=150)
-
+st.divider()
 st.write("Watch the video below to find the **passcode** needed to enter the contest. Make sure to pay close attention as the passcode could appear at any moment!")
 st.video("https://youtu.be/Ek82r3EEMs4")
 st.divider()

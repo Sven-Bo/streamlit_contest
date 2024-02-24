@@ -58,14 +58,10 @@ with col1:
         "It's Sven from CodingIsFun! Participate in my contest to win an exclusive Streamlit T-shirt.",
         anchor=False,
     )
-    st.write("Watch the video below to find the **passcode** needed to enter the contest. Make sure to pay close attention as the passcode could appear at any moment!")
-    st.video("https://youtu.be/Ek82r3EEMs4")
-    st.page_link(
-        "http://www.youtube.com/@codingisfun", label="YouTube Channel", icon="📺"
-    )
-    st.page_link("http://www.pythonandvba.com", label="Website", icon="🌎")
-
 col2.image("assets/streamlit_tshirt.jpg", width=150)
+
+st.write("Watch the video below to find the **passcode** needed to enter the contest. Make sure to pay close attention as the passcode could appear at any moment!")
+st.video("https://youtu.be/Ek82r3EEMs4")
 st.divider()
 st.info(
     "Contest ends on Saturday, 2nd March 2024 EOD CET. Winner will be picked by random choice on Sunday, 3rd March and informed via email.",

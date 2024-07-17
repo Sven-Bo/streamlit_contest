@@ -2,16 +2,12 @@ import streamlit as st
 from datetime import datetime, timezone, timedelta
 import requests
 
-
-WEBHOOK_URL = st.secrets["webhook_url"]
-API_KEY = st.secrets["api_key"]
-PASSCODE = st.secrets[
-    "passcode"
-].lower()  # Stored in lowercase for case-insensitive comparison
+WEBHOOK_URL = st.secrets["WEBHOOK_URL"]
+API_KEY = st.secrets["API_KEY"]
 
 CONTEST_END_TIME = datetime(
-    2024, 3, 2, 23, 59, 59, tzinfo=timezone(timedelta(hours=1))
-) 
+    2024, 7, 24, 23, 59, 59, tzinfo=timezone(timedelta(hours=2))
+)
 
 
 def verify_email(email):
@@ -42,7 +38,7 @@ def send_data_via_webhook(data):
 
 
 def check_contest_deadline():
-    now = datetime.now(timezone(timedelta(hours=1)))
+    now = datetime.now(timezone(timedelta(hours=2)))
     if now > CONTEST_END_TIME:
         st.error("Sorry, the contest has ended.")
         st.stop()
@@ -60,22 +56,29 @@ with col1:
     )
 col2.image("assets/streamlit_tshirt.jpg", width=150)
 st.divider()
-st.write("Watch the video below to find the **passcode** needed to enter the contest. Make sure to pay close attention as the passcode could appear at any moment!")
-st.video("https://youtu.be/Ek82r3EEMs4")
+st.info(
+    "Watch the video below and find out **which Streamlit version I used**. "
+    "Then, submit your answer to enter the contest!",
+    icon="💡",
+)
+st.video("https://youtu.be/9n4Ch2Dgex0")
 st.divider()
 st.info(
-    "Contest ends on Saturday, 2nd March 2024 EOD CET. Winner will be picked by random choice on Sunday, 3rd March and informed via email.",
+    "Contest ends on Wednesday, 24th July 2024 EOD CET. The winner will be picked by random choice on Thursday, 25th July and informed via email.",
     icon="💡",
 )
 
 with st.form("submission_form"):
     email = st.text_input("Email Address")
     name = st.text_input("First Name")
-    passcode_input = st.text_input(
-        "Passcode"
-    ).lower()
+    streamlit_version = st.selectbox(
+        label="Which Streamlit version did I use in the video?",
+        options=["1.37.0", "1.36.0", "1.35.0", "1.34.0"],
+        index=None,
+        placeholder="Choose an option",
+    )
     compliance = st.checkbox("I agree to the terms and conditions.")
-    
+
     with st.expander("Terms and Conditions"):
         st.markdown(
             """
@@ -83,9 +86,9 @@ with st.form("submission_form"):
 
             - **Eligibility**: Participation is open to individuals who agree to provide their email for the purpose of contest communication. Each participant is allowed only one entry.
             
-            - **Contest Period**: The contest will conclude on Saturday, 2nd March 2024 at the end of the day (EOD) CET. Entries submitted after this period will not be considered.
+            - **Contest Period**: The contest will conclude on Wednesday, 24th July 2024 at the end of the day (EOD) CET. Entries submitted after this period will not be considered.
             
-            - **Selection of Winner**: The winner will be selected randomly on Sunday, 3rd March 2024. The chosen winner will be notified via the provided email address.
+            - **Selection of Winner**: The winner will be selected randomly on Thursday, 25th July 2024. The chosen winner will be notified via the provided email address.
             
             - **Data Protection**: Your privacy is important to me. The email address you provide will be used exclusively for the purpose of this contest communication and will not be shared with third parties without your consent.
             
@@ -108,8 +111,8 @@ if submit_button:
         st.error("Oops! Your name's missing. Mind filling that in?", icon="🧑")
         st.stop()
 
-    if passcode_input != PASSCODE:
-        st.error("Uh-oh, that passcode didn't work. Try again?", icon="🔑")
+    if not streamlit_version:
+        st.error("Please select the Streamlit version from the video.", icon="🎬")
         st.stop()
 
     if not compliance:
@@ -119,7 +122,11 @@ if submit_button:
     with st.spinner("Hold tight, validating your email..."):
         is_email_valid, email_error_message = verify_email(email)
         if is_email_valid:
-            data = {"email": email, "name": name}
+            data = {
+                "email": email,
+                "name": name,
+                "streamlit_version": streamlit_version,
+            }
             if send_data_via_webhook(data):
                 st.success("Boom! You’re in the running 🎉 Good luck!", icon="🚀")
                 st.balloons()
